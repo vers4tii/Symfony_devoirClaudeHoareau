@@ -1,0 +1,28 @@
+{# Partial template for equipment table #}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Puissance</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in equipment %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.power }}</td>
+            <td>{{ item.description|default('-') }}</td>
+            <td>
+                <form method="post" action="{{ path('app_equipment_delete', {'id': item.id}) }}" 
+                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet équipement ?');" 
+                      style="display: inline-block">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

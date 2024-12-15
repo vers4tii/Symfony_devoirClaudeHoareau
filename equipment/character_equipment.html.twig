@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Équipement de {{ character.name }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Équipement de {{ character.name }}</h1>
+        <p class="text-muted">Puissance totale : {{ totalPower }}</p>
+
+        <a href="{{ path('app_equipment_add', {'characterId': character.id}) }}" class="btn btn-primary mb-4">
+            Ajouter un équipement
+        </a>
+
+        {# Section Armes #}
+        <h2>Armes</h2>
+        {% if equipmentByType.weapons is empty %}
+            <p>Aucune arme équipée</p>
+        {% else %}
+            {% include 'equipment/_equipment_table.html.twig' with {'equipment': equipmentByType.weapons} %}
+        {% endif %}
+
+        {# Section Armures #}
+        <h2 class="mt-4">Armures</h2>
+        {% if equipmentByType.armor is empty %}
+            <p>Aucune armure équipée</p>
+        {% else %}
+            {% include 'equipment/_equipment_table.html.twig' with {'equipment': equipmentByType.armor} %}
+        {% endif %}
+
+        {# Section Accessoires #}
+        <h2 class="mt-4">Accessoires</h2>
+        {% if equipmentByType.accessories is empty %}
+            <p>Aucun accessoire équipé</p>
+        {% else %}
+            {% include 'equipment/_equipment_table.html.twig' with {'equipment': equipmentByType.accessories} %}
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="{{ path('app_character_index') }}" class="btn btn-secondary">Retour aux personnages</a>
+        </div>
+    </div>
+{% endblock %}

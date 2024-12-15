@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Personnages{% endblock %}
+
+{% block body %}
+    <h1>Mes Personnages</h1>
+
+    <a href="{{ path('app_character_new') }}" class="btn btn-primary">Créer un nouveau personnage</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Niveau</th>
+                <th>Arcane</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for character in characters %}
+            <tr>
+                <td>{{ character.name }}</td>
+                <td>{{ character.level }}</td>
+                <td>{{ character.arcana }}</td>
+                <td>
+                    <a href="{{ path('app_character_show', {'id': character.id}) }}">Voir</a>
+                    <a href="{{ path('app_character_edit', {'id': character.id}) }}">Modifier</a>
+                    <a href="{{ path('app_equipment_by_character', {'id': character.id}) }}">Équipement</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun personnage trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
